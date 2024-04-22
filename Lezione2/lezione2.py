@@ -254,7 +254,7 @@ print(f"Mario: {(fav_numbers['Mario'])}\nGiulia: {(fav_numbers['Giulia'])}\nSofi
 
 # ###############
 # # 6-3. Glossary: A Python dictionary can be used to model an actual dictionary.
-# # However, to avoid confusion, let’s call it a glossary.
+# # However, to avoid confusion, let’s caprint("\n")ll it a glossary.
 # • Think of five programming words you’ve learned about in the previous chapters.
 #  Use these words as the keys in your glossary, and store their meanings as values.
 # • Print each word and its meaning as neatly formatted output. You might print the word followed by a colon
@@ -295,8 +295,7 @@ fuffy: dict = {"kind": 'dog', "owner": friend}
 john: dict = {"kind": 'parrot', "owner": mom}
 isbiorn: dict = {"kind": 'dog', "owner": dad}
 
-pets: dict = [fuffy, john, isbiorn]
-print(pets)
+pets: list = [fuffy, john, isbiorn]
 
 for i in pets:
     for key in i.keys():
@@ -315,10 +314,27 @@ for i in pets:
 #  ask some friends to name a few of their favorite places. Loop through the dictionary,
 #  and print each person’s name and their favorite places.
 
+favorite_places: dict = {"Mario": 'Tropea', "Luigi": 'Monte Livata', "Alex": 'Rome'}
+
+for kw in favorite_places:
+    print(f"Il posto preferito di {kw} è {favorite_places[kw]}.\n")
+
 
 ##################
 # 6-10. Favorite Numbers: Modify your program from Exercise 6-2 so each person can have more than one favorite number.
 #  Then print each person’s name along with their favorite numbers.
+
+marios_fav: list = [5, 6]
+giulias_fav: list = [7, 8]
+sofias_fav: list = [9, 10]
+marcos_fav: list = [12, 13]
+luigis_fav: list = [21, 22]
+fav_numbers = {"Mario": marios_fav, "Giulia": giulias_fav, "Sofia": sofias_fav, "Marco": marcos_fav, "Luigi": luigis_fav}
+
+for key in fav_numbers.keys():
+    print(f"I numeri preferiti di {key} sono:")
+    for i in fav_numbers[key]:
+        print([i])
 
 
 ##################
@@ -327,9 +343,33 @@ for i in pets:
 #  its approximate population, and one fact about that city. The keys for each city’s dictionary should be
 #  something like country, population, and fact. Print the name of each city and all of the information you have stored about it.
 
+rome_info: dict = {"Country": 'Italy', "Population": 2750000, "Fact": 'The history of Rome is long and complex: a village grew into the Eternal City that’s still a wonder today.'}
+florence_info: dict = {"Country": 'Italy', "Population": 364000, "Fact": 'Florence was once the capital of the Kingdom of Italy'}
+neaples_info: dict = {"Country": 'Italy', "Population": 900000, "Fact": 'Napoli comes from the Greek word Neapolis which means “new city”'}
+
+cities: dict = {"Rome": rome_info, "Florence": florence_info, "Neaples": neaples_info}
+
+for key in cities.keys():
+    print(key)
+    for k in cities[key].keys():
+        print(f"{k}: {(cities[key][k])}")
+    print("\n")
+
 
 ####################
 # 6-12. Extensions: We’re now working with examples that are complex enough that they can be extended in any number of ways.
 #  Use one of the example programs from this chapter, and extend it by adding new keys and values,
 #  changing the context of the program, or improving the formatting of the output.
+
+milan_info: dict = {"Country": 'Italy', "Population": 1350000, "Fact": 'The city of Milan was founded more than 2,500 years ago, in 600 BC.'}
+turin_info: dict = {"Country": 'Italy', "Population": 890000, "Fact": 'Turin Was the First Capital of Italy'}
+
+cities["Milan"] = milan_info
+cities["Turin"] = turin_info
+
+for key in cities.keys():
+    print(key)
+    for k in cities[key].keys():
+        print(f"{k}: {(cities[key][k])}")
+    print("\n")
 
