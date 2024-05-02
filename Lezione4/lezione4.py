@@ -28,9 +28,11 @@ def favorite_book(title: str) -> None:
 favorite_book("Alice in Wonderland")
 
 
-# 8-3. T-Shirt: Write a function called make_shirt() that accepts a size and the text of a message that should be printed on the shirt.
+# 8-3. T-Shirt: Write a function called make_shirt() that accepts a size and
+#  the text of a message that should be printed on the shirt.
 # The function should print a sentence summarizing the size of the shirt and the message printed on it.
-# Call the function once using positional arguments to make a shirt. Call the function a second time using keyword arguments.
+# Call the function once using positional arguments to make a shirt.
+#  Call the function a second time using keyword arguments.
 print()
 def make_shirt(size: str, message: str) -> None:
     print(f"Shirt\nSize: {size}\nMessage: {message}")
@@ -39,7 +41,8 @@ make_shirt("small", "Nike")
 
 make_shirt(message="Adidas", size="small")
 
-# 8-4. Large Shirts: Modify the make_shirt() function so that shirts are large by default with a message that reads I love Python.
+# 8-4. Large Shirts: Modify the make_shirt() function so that shirts are large
+#  by default with a message that reads I love Python.
 #  Make a large shirt and a medium shirt with the default message, and a shirt of any size with a different message.
 print()
 def make_shirt(size: str = "large", message: str = "I love Python.") -> None:
@@ -53,7 +56,8 @@ make_shirt(message="I love Java.")
 
 
 # 8-5. Cities: Write a function called describe_city() that accepts the name of a city and its country.
-# The function should print a simple sentence, such as Reykjavik is in Iceland. Give the parameter for the country a default value.
+# The function should print a simple sentence, such as Reykjavik is in Iceland.
+#  Give the parameter for the country a default value.
 # Call your function for three different cities, at least one of which is not in the default country.
 print()
 def describe_city(city: str, country: str ="Italy") -> None:
@@ -65,7 +69,8 @@ describe_city("Warsaw", "Poland")
 
 
 # 8-6. City Names: Write a function called city_country() that takes in the name of a city and its country.
-# The function should return a string formatted like this: "Santiago, Chile". Call your function with at least three city-country pairs, and print the values that are returned.
+# The function should return a string formatted like this: "Santiago, Chile".
+#  Call your function with at least three city-country pairs, and print the values that are returned.
 print()
 def city_country(city: str, country: str) -> None:
     print(f"{city}, {country}")
@@ -76,9 +81,12 @@ city_country("Warsaw", "Poland")
 
 
 # 8-7. Album: Write a function called make_album() that builds a dictionary describing a music album.
-# The function should take in an artist name and an album title, and it should return a dictionary containing these two pieces of information.
-# Use the function to make three dictionaries representing different albums. Print each return value to show that the  dictionaries are storing the album information correctly.
-# Use None to add an optional parameter to make_album() that allows you to store the number of songs on an album. If the calling line includes a value for the number of songs,
+# The function should take in an artist name and an album title,
+# and it should return a dictionary containing these two pieces of information.
+# Use the function to make three dictionaries representing different albums.
+#  Print each return value to show that the  dictionaries are storing the album information correctly.
+# Use None to add an optional parameter to make_album() that allows you to store the number of songs on an album.
+#  If the calling line includes a value for the number of songs,
 #  add that value to the album’s dictionary. Make at least one new function call that includes the number of songs on an album.
 print()
 def make_album(artist_name: str, album_name: str, num_songs: int = None) -> dict:
@@ -96,8 +104,10 @@ print(album2)
 print(album3)
 
 
-# 8-8. User Albums: Start with your program from Exercise 8-7. Write a while loop that allows users to enter an album’s artist and title.
-#  Once you have that information, call make_album() with the user’s input and print the dictionary that’s created. Be sure to include a quit value in the while loop.
+# 8-8. User Albums: Start with your program from Exercise 8-7.
+#  Write a while loop that allows users to enter an album’s artist and title.
+#  Once you have that information, call make_album() with the user’s input and
+#  print the dictionary that’s created. Be sure to include a quit value in the while loop.
 print()
 choice: str= 'y'
 
@@ -110,7 +120,8 @@ choice: str= 'y'
 #     choice = choice.lower()
 
 
-# 8-9. Messages: Make a list containing a series of short text messages. Pass the list to a function called show_messages(), which prints each text message.
+# 8-9. Messages: Make a list containing a series of short text messages.
+#  Pass the list to a function called show_messages(), which prints each text message.
 print()
 messages: list= ['I am going to be late.', 'I will call you later.', 'See you soon.']
 
@@ -139,15 +150,18 @@ def send_messages(messag: list) -> None:
 # print(sent_messages)
 
 
-# 8-11. Archived Messages: Start with your work from Exercise 8-10. Call the function send_messages() with a copy of the list of messages.
+# 8-11. Archived Messages: Start with your work from Exercise 8-10.
+#  Call the function send_messages() with a copy of the list of messages.
 #  After calling the function, print both of your lists to show that the original list has retained its messages.
 print()
 send_messages(messages.copy())
 print(messages)
 print(sent_messages)
 
-# 8-12. Sandwiches: Write a function that accepts a list of items a person wants on a sandwich. The function should have one parameter that collects
-# as many items as the function call provides, and it should print a summary of the sandwich that’s being ordered. Call the function three times, using a different number of arguments each time.
+# 8-12. Sandwiches: Write a function that accepts a list of items a person wants on a sandwich.
+#  The function should have one parameter that collects
+# as many items as the function call provides, and it should print a summary
+#  of the sandwich that’s being ordered. Call the function three times, using a different number of arguments each time.
 print()
 
 def make_sandwich(*args) -> None:
@@ -162,8 +176,10 @@ sandwich2 = make_sandwich('shrimps', 'lettuce', 'mayonnaise')
 
 
 
-# 8-13. User Profile:  Build a profile of yourself by calling build_profile(), using your first and last names and three other key-value pairs that describe you.
-# All the values must be passed to the function as parameters. The function then must return a string such as "Eric Crow, age 45, hair brown, weight 67"
+# 8-13. User Profile:  Build a profile of yourself by calling build_profile(),
+#  using your first and last names and three other key-value pairs that describe you.
+# All the values must be passed to the function as parameters.
+#  The function then must return a string such as "Eric Crow, age 45, hair brown, weight 67"
 print()
 
 def build_profile(first_name: str, last_name: str, **kwargs):
@@ -176,9 +192,12 @@ def build_profile(first_name: str, last_name: str, **kwargs):
 user = build_profile('Mario', 'Rossi', age= 45, hair='brown', weight=70)
 print(user)
 
-# 8-14. Cars: Write a function that stores information about a car in a dictionary. The function should always receive a manufacturer and a model name.
-# It should then accept an arbitrary number of keyword arguments. Call the function with the required information and two other name-value pairs,
-#  such as a color or an optional feature. Your function should work for a call like this one: car = make_car('subaru', 'outback', color='blue', tow_package=True)
+# 8-14. Cars: Write a function that stores information about a car in a dictionary.
+#  The function should always receive a manufacturer and a model name.
+# It should then accept an arbitrary number of keyword arguments.
+#  Call the function with the required information and two other name-value pairs,
+#  such as a color or an optional feature. Your function should work for a call like this one:
+#  car = make_car('subaru', 'outback', color='blue', tow_package=True)
 #  Print the dictionary that’s returned to make sure all the information was stored correctly. 
 print()
 
@@ -205,4 +224,5 @@ print(car1)
 # from module_name import *
 
 
-# 8-17. Styling Functions: Choose any three programs you wrote for this chapter, and make sure they follow the styling guidelines described in this section.
+# 8-17. Styling Functions: Choose any three programs you wrote for this chapter,
+#  and make sure they follow the styling guidelines described in this section.
