@@ -19,13 +19,20 @@ def is_subsequence(s: str, t: str) -> bool:
     s_list = list(s)
     t_list = list(t)
 
-    for i in s_list:
+    if s == "":
+        return True
+
+    for i in range(len(s_list)):
         exists_flag = False
         for j in range(len(t_list)):
-            if i == t_list[j]:
+            if s_list[i] == t_list[j]:
                 exists_flag = True
-                for t in range(len(t_list) -j):
-                    if 
+                for g in range(len(t_list) -j):
+                    if s_list[i +1] == t_list[g + j]:
+                        for f in range(len(t_list) -j -g):
+                            if s_list[i + f] == t_list[g + j]:
+                                return True
+        return False
         if exists_flag is False:
             return False
 
