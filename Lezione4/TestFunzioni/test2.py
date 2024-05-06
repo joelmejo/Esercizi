@@ -1,7 +1,7 @@
 # Uno sviluppatore web deve sapere come progettare le dimensioni di una pagina web.
-#  Pertanto, data l'area specifica di una pagina Web rettangolare,
-#  il tuo compito ora è progettare una pagina Web rettangolare, la cui lunghezza L e larghezza W
-#  soddisfino i seguenti requisiti:
+# Pertanto, data l'area specifica di una pagina Web rettangolare,
+# il tuo compito ora è progettare una pagina Web rettangolare, la cui lunghezza L e larghezza W
+# soddisfino i seguenti requisiti:
 
 # 1. L'area della pagina web rettangolare che hai progettato deve essere uguale all'area di destinazione specificata.
 # 2. La larghezza W non deve essere maggiore della lunghezza L, il che significa L >= W.
@@ -19,7 +19,14 @@
 
 def construct_rectangle(area: float) -> list[float]:
     # elimina il pass e inserisci il codice
-    return None
+    side = int(area ** 0.5)
+    
+    # Trova la lunghezza e la larghezza
+    for width in range(side, 0, -1):
+        if area % width == 0:
+            length = area // width
+            return [length, width]
+
 
 
 print(construct_rectangle(4)) #[2, 2]
