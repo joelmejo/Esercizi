@@ -18,7 +18,9 @@ def third_max(nums: list[int]) -> int:
     unique_nums: set= set(nums)
     unique_nums_list: list= list(unique_nums)
     if len(unique_nums_list) >= 3:
-        unique_nums_list = unique_nums_list.sort( reverse=True)
+        unique_nums_list.sort( reverse=True)
         return unique_nums_list[2]
     else:
         return max(unique_nums_list)
+
+print(third_max([3, 2, 1])) #1

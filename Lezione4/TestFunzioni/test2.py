@@ -21,7 +21,6 @@ def construct_rectangle(area: float) -> list[float]:
     # elimina il pass e inserisci il codice
     side = int(area ** 0.5)
     
-    # Trova la lunghezza e la larghezza
     for width in range(side, 0, -1):
         if area % width == 0:
             length = area // width
