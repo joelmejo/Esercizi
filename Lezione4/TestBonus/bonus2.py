@@ -15,14 +15,9 @@ def ugly_number(num: int) -> bool:
             if(num%i)==0:
                 num //= i
                 flag = True
-    if num == 2:
-        return True
-    elif num == 3:
-        return True
-    elif num == 5:
-        return True
-    else:
-        return False
+                if num == 1:
+                    return True
+    return False
             
 
 print(ugly_number(6)) #True
