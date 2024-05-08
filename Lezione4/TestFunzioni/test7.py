@@ -1,7 +1,12 @@
 # Scrivi una funzione prime_factors(n: int) -> list[int] che trova i fattori primi di un numero n dato in input
 from time import time
 
+# Test di Fermat
+# numeri di Carmichael - evitare falsi positivi
 
+# Test di Miller-Rabin
+# Si tratta di un metodo di calcolo veloce, che restituisce un numero inferiore di "falsi positivi" rispetto al test di Fermat.
+# Un numero "composto" non restituisce mai un "falso positivo" per più di un quarto dei valori assunti da a
 
 def make_prime(num: int, divisore: int= 0) -> list:
     prime_numbers: list= []
@@ -16,7 +21,7 @@ def make_prime(num: int, divisore: int= 0) -> list:
         for y in range(len(prime_numbers) -1 -c):
             num1: int = prime_numbers[y +1 +c -popped_nums]
             num2: int = prime_numbers[x]
-            temp: float = num1%num2
+            temp: int = num1%num2
             if  temp == 0:
                 prime_numbers.pop(y +1 +c -popped_nums)
                 popped_nums += 1
