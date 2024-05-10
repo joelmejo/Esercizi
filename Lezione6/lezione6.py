@@ -26,7 +26,7 @@ class Person:
 
     def __init__(self, name: str, surname: str, birth_date: str, birth_place: str, gender: str) -> None:
 
-        self.__name: str = name
+        self._name: str = name
         self._surname: str = surname
         self._birth_date: str = birth_date
         self._birth_place: str = birth_place
@@ -34,82 +34,73 @@ class Person:
         self._ssn: str = ''
         self.compute_ssn()
         pass
+
+    def compute_consonants(uppercase_char_list: list) -> list:
+        uppercase_consonants: list = ['B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 
+                                        'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'X', 'Y', 'Z']
+        
+        uppercase_vowels = ['A', 'E', 'I', 'O', 'U']
+        
+        upper_consonants: list = []
+
+        for char in uppercase_char_list:
+            for consonant in uppercase_consonants:
+                if char == consonant:
+                    upper_consonants.append(char)
+                    break
+            if len(upper_consonants) == 4:
+                upper_consonants.pop(1)
+                break
+        if len(upper_consonants) < 3:
+            add_count: int = 0
+            for char in uppercase_char_list:
+                for consonant in uppercase_consonants:
+                    if char != consonant:
+                        upper_consonants.insert(add_count, char)
+                        add_count += 1
+                        break
+                if len(upper_consonants) == 3:
+                    break
+        while len(upper_consonants) < 3:
+            upper_consonants.append('X')
+        
+        return upper_consonants
+
     
     def compute_ssn(self) -> bool:
         """
         Compute the ssn
         """
         ssn: str = ''
-        uppercase_consonants: list = ['B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 
-                                        'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'X', 'Y', 'Z']
+
+        months: dict = {
+                                "01": "A",
+                                "02": "B",
+                                "03": "C",
+                                "04": "D",
+                                "05": "E",
+                                "06": "H",
+                                "07": "L",
+                                "08": "M",
+                                "09": "P",
+                                "10": "R",
+                                "11": "S",
+                                "12": "T"
+                                }
         
-        uppercase_vowels = ['A', 'E', 'I', 'O', 'U']
+        uppercase_surname_characters: list = list(self._surname.upper())
+        ssn += (''.join(self.compute_consonants(uppercase_surname_characters)))
 
+        uppercase_name_characters: list = list(self._name.upper())
+        ssn += (''.join(self.compute_consonants(uppercase_name_characters)))
 
-        birth_month: dict = {
-        "Gennaio": "A",
-        "Febbraio": "B",
-        "Marzo": "C",
-        "Aprile": "D",
-        "Maggio": "E",
-        "Giugno": "H",
-        "Luglio": "L",
-        "Agosto": "M",
-        "Settembre": "P",
-        "Ottobre": "R",
-        "Novembre": "S",
-        "Dicembre": "T"
-        }
+        birth_day, birth_month, birth_year = self._birth_date.split('/')
+        year: list = list(birth_year)
+        ssn += (''.join(year[-2:]))
 
+        ssn += months(birth_month)
 
-        surname_characters: list = list(self._surname.upper)
-        upper_surname_consonants: list = []
-        for char in surname_characters:
-            for consonant in uppercase_consonants:
-                if char == consonant:
-                    upper_surname_consonants.append(char)
-                    break
-            if len(upper_surname_consonants) == 3:
-                break
-        if len(upper_surname_consonants) < 3:
-            add_count: int = 0
-            for char in surname_characters:
-                for consonant in uppercase_consonants:
-                    if char != consonant:
-                        upper_surname_consonants.insert(add_count, char)
-                        add_count += 1
-                        break
-                if len(upper_surname_consonants) == 3:
-                    break
-        while len(upper_surname_consonants) < 3:
-            upper_surname_consonants.append('X')
-
-        ssn += (''.join(upper_surname_consonants))
-
-        name_characters: list = list(self._name.upper)
-        upper_name_consonants: list = []
-
-        for char in name_characters:
-            for consonant in uppercase_consonants:
-                if char == consonant:
-                    upper_name_consonants.append(char)
-                    break
-            if len(upper_name_consonants) == 3:
-                break
-        if len(upper_name_consonants) < 3:
-            add_count: int = 0
-            for char in name_characters:
-                for consonant in uppercase_consonants:
-                    if char != consonant:
-                        upper_name_consonants.insert(add_count, char)
-                        add_count += 1
-                        break
-                if len(upper_name_consonants) == 3:
-                    break
-        while len(upper_name_consonants) < 3:
-            upper_name_consonants.append('X')
-
-        
+        return ssn
 
 
     def get_name(self) -> str:
@@ -119,7 +110,7 @@ class Person:
         return: self._name: str, the function returns the person's name        
         """
 
-        return self.__name
+        return self._name
     
     def set_name(self, name: str) -> None:
         """
