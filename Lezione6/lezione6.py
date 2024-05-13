@@ -1,5 +1,6 @@
 import pandas as pd
 
+# source: https://www.agenziaentrate.gov.it/portale/web/guest/schede/istanze/richiesta-ts_cf/informazioni-codificazione-pf
 # Il calcolo del codice fiscale consta di 16 caratteri alfanumerici per i privati e di 11 per le persone giuridiche.
 
 # Per le persone fisiche, i primi 15 caratteri si ottengono a partire dai dati personali:
@@ -103,7 +104,7 @@ class Person:
     
     def compute_ssn(self) -> bool:
         """
-        Compute the ssn
+        This function computes the ssn
         """
         ssn: str = ''
 
@@ -122,7 +123,7 @@ class Person:
                             "12": "T"
                         }
         
-        cities_data = pd.read_csv(filepath_or_buffer='Lezione6\data\codici_comuni_10-05-2024.csv', sep=';', header=0, usecols=['DESCRIZIONE COMUNE', 'CODICE BELFIORE'], index_col='DESCRIZIONE COMUNE', encoding='latin-1')
+        cities_data = pd.read_csv(filepath_or_buffer='Lezione6/data/codici_comuni_10-05-2024.csv', sep=';', header=0, usecols=['DESCRIZIONE COMUNE', 'CODICE BELFIORE'], index_col='DESCRIZIONE COMUNE', encoding='latin-1')
 
         uppercase_surname_characters: list = list(self._surname.upper())
         ssn += (''.join(self.compute_surname_consonants(uppercase_surname_characters)))
@@ -147,26 +148,26 @@ class Person:
         ssn += cadastral_code
 
         conversion_table_odds: dict = {
-                                '0': 0, '1': 1, '2': 5, '3': 7, '4': 9, '5': 13, '6': 15, '7': 17, '8': 19, '9': 21,
-                                'A': 1, 'B': 0, 'C': 5, 'D': 7, 'E': 9, 'F': 13, 'G': 15, 'H': 17, 'I': 19, 'J': 21,
-                                'K': 2, 'L': 4, 'M': 18, 'N': 20, 'O': 11, 'P': 3, 'Q': 6, 'R': 8, 'S': 12,
-                                'T': 14, 'U': 16, 'V': 10, 'W': 22, 'X': 25, 'Y': 24, 'Z': 23
-                                }
+                                    '0': 0, '1': 1, '2': 5, '3': 7, '4': 9, '5': 13, '6': 15, '7': 17, '8': 19, '9': 21,
+                                    'A': 1, 'B': 0, 'C': 5, 'D': 7, 'E': 9, 'F': 13, 'G': 15, 'H': 17, 'I': 19, 'J': 21,
+                                    'K': 2, 'L': 4, 'M': 18, 'N': 20, 'O': 11, 'P': 3, 'Q': 6, 'R': 8, 'S': 12,
+                                    'T': 14, 'U': 16, 'V': 10, 'W': 22, 'X': 25, 'Y': 24, 'Z': 23
+                                    }
         
         conversion_table_even: dict = {
-                                '0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9,
-                                'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6, 'H': 7, 'I': 8, 'J': 9,
-                                'K': 10, 'L': 11, 'M': 12, 'N': 13, 'O': 14, 'P': 15, 'Q': 16, 'R': 17, 'S': 18,
-                                'T': 19, 'U': 20, 'V': 21, 'W': 22, 'X': 23, 'Y': 24, 'Z': 25
-                                }
-        
+                                    '0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9,
+                                    'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6, 'H': 7, 'I': 8, 'J': 9,
+                                    'K': 10, 'L': 11, 'M': 12, 'N': 13, 'O': 14, 'P': 15, 'Q': 16, 'R': 17, 'S': 18,
+                                    'T': 19, 'U': 20, 'V': 21, 'W': 22, 'X': 23, 'Y': 24, 'Z': 25
+                                    }
+            
         conversion_table_remainder: dict = {
                                         '0': 'A', '1': 'B', '2': 'C', '3': 'D', '4': 'E', '5': 'F', '6': 'G', '7': 'H', '8': 'I', '9': 'J',
                                         '10': 'K', '11': 'L', '12': 'M', '13': 'N', '14': 'O', '15': 'P', '16': 'Q', '17': 'R', '18': 'S', '19': 'T',
                                         '20': 'U', '21': 'V', '22': 'W', '23': 'X', '24': 'Y', '25': 'Z'
                                         }
         
-        odd_even_flag: bool = True
+        odd_even_flag: bool = False
         compute_check_digit: list =[]
         for char in ssn:
             if odd_even_flag == True:
@@ -175,8 +176,6 @@ class Person:
             else:
                 compute_check_digit.append(conversion_table_odds[char])
                 odd_even_flag = True
-
-        print(sum(compute_check_digit))
 
         check_digit: int = conversion_table_remainder[str(sum(compute_check_digit) % 26)]
 
@@ -222,6 +221,6 @@ class Person:
         raise Exception("You cannot modify the ssn!")
 
 
-person_1: Person = Person(name='Valentino', surname='Rossi', birth_date='11/11/1999', birth_place='Roma', gender='M')
+person_1: Person = Person(name='Mario', surname='Rossi', birth_date='11/11/1999', birth_place='Roma', gender='M')
 
 print(person_1.get_ssn())
