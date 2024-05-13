@@ -4,7 +4,7 @@
 #         name, species, age, height, width, preferred_habitat, health che è uguale a round(100 * (1 / age), 3).
 
 class Animal:
-    def __init__(self, name: str, species: str, age: int, height: float, width: float, preferred_habitat: str, health: float) -> None:
+    def __init__(self, name: str, species: str, age: int, height: float, width: float, preferred_habitat: str) -> None:
         self._name = name
         self._species = species
         self._age = age
@@ -46,6 +46,7 @@ class Animal:
 class Fence:
     def __init__(self, area: float, temperature: float, habitat: str) -> None:
         self._area = area
+        self._unavailable_area: float = 0
         self._temperature = temperature
         self._habitat = habitat
         self._animals: list[Animal] = []
@@ -53,8 +54,8 @@ class Fence:
     def get_area(self) -> float:
         return self._area
     
-    def set_area(self, area: float) -> None:
-        self._area = area
+    def get_unavailable_area(self) -> float:
+        return self._unavailable_area
 
     def get_temperature(self) -> float:
         return self._temperature
@@ -65,8 +66,13 @@ class Fence:
     def get_animals(self) -> list:
         return self._animals
     
-    def add_animal(self, animal: Animal) -> None:
+    def append_animal(self, animal: Animal) -> None:
         self._animals.append(animal)
+        self._unavailable_area += (animal.get_height() * animal.get_width())
+
+    def remov_animal(self, animal: Animal) -> None:
+        self._animals.remove(animal)
+        self._unavailable_area -= (animal.get_height() * animal.get_width())
     
 # ZooKeeper: questa classe rappresenta un guardiano dello zoo responsabile della gestione dello zoo.
 #            I guardiani dello zoo hanno un name, un surname, e un id.
@@ -84,19 +90,26 @@ class ZooKeeper:
 #   alle esigenze del suo habitat e se c'è ancora spazio nel recinto, ovvero se l'area del recinto è ancora
 #   sufficiente per ospitare questo animale.
 
-    def add_animal(animal: Animal, fence: Fence) -> None:
-        if animal.get_preferred_habitat == fence.get_habitat:
-            if animal.get_height * animal.get_width < fence.get_area:
-                fence.add_animal(animal)
-                fence.set_area = (fence.get_area - (animal.get_height * animal.get_width))
+    def add_animal(self, animal: Animal, fence: Fence) -> None:
+        if animal.get_preferred_habitat() == fence.get_habitat():
+            if animal.get_height() * animal.get_width() < (fence.get_area() - fence.get_unavailable_area()):
+                fence.append_animal(animal)
+            else:
+                print(f"There isn't enough space to add {animal.get_name} to this fence.")
         else:
-            print(f"There isn't enough space to add {animal.get_name} to this fence.")
-
+            print(f"The habitat of {animal.get_name()} does not match the habitat of this fence.")
 
 
 # 2. remove_animal(animal: Animal, fence: Fence) (Rimuovi animale): consente al guardiano dello zoo
 #   di rimuovere un animale dallo zoo. L'animale deve essere allontanato dal suo recinto.
 #   Nota bene: L'area del recinto deve essere ripristinata dello spazio che l'animale rimosso occupava.
+
+    def remove_animal(self, animal: Animal, fence: Fence) -> None:
+        if animal in fence.get_animals():
+            fence.remov_animal(animal)
+        else:
+            print(f"{animal.get_name().capitalize()} couldn't be removed from the fence because it isn't in it.")
+
 
 # 3. feed(animal: Animal) (Dai da mangiare agli animali): implementa un metodo che consenta al guardiano dello zoo
 #   di nutrire tutti gli animali dello zoo. Ogni volta che un animale viene nutrito, la sua salute incrementa
@@ -109,6 +122,12 @@ class ZooKeeper:
 #   che il guardiano impiega per pulire il recinto. Il tempo di pulizia è il rapporto dell'area occupata
 #   dagli animali diviso l'area residua del recinto. Se l'area residua è pari a 0, restituire l'area occupata.
 
+def clean(self, fence: Fence) -> float:
+    if fence.get_area() == fence.get_unavailable_area():
+        return fence.get_unavailable_area()
+    else:
+        return fence.get_unavailable_area() / (fence.get_area() - fence.get_unavailable_area())
+    
 
     
 # Zoo: questa classe rappresenta uno zoo. Lo zoo ha dei recinti fences e dei guardiani dello zoo, zoo_keepers.
@@ -132,8 +151,6 @@ keeper = ZooKeeper("Lorenzo", "Maggi", 1234)
 
 squirrel = Animal("Scoiattolo", "Blabla", 25, 0.2, 0.3, "Foresta")
 wolf = Animal("Lupo", "Lupus", 14, 0.6, 1.2, "Foresta")
-
-
 
 fence = Fence(100, 25, "Foresta")
 
