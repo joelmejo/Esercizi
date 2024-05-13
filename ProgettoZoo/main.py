@@ -40,6 +40,9 @@ class Animal:
     def get_health(self) -> float:
         return self._health
     
+    def __str__(self) -> str:
+        return f"Animal(name={self._name}, species={self._species}, age={self._age})"
+    
 # Fence: questa classe rappresenta un recinto dello zoo in cui sono tenuti gli animali.
 #        I recinti possono contenere uno o più animali. I recinti possono hanno gli attributi area, temperature e habitat.
 
@@ -73,6 +76,9 @@ class Fence:
     def remov_animal(self, animal: Animal) -> None:
         self._animals.remove(animal)
         self._unavailable_area -= (animal.get_height() * animal.get_width())
+
+    def __str__(self) -> str:
+        return f"Fence(area={self._area}, temperature={self._temperature}, habitat={self._habitat}\n\nwith animals:\n\n{'\n\n'.join([str(animal) for animal in self._animals])}"
     
 # ZooKeeper: questa classe rappresenta un guardiano dello zoo responsabile della gestione dello zoo.
 #            I guardiani dello zoo hanno un name, un surname, e un id.
@@ -80,7 +86,7 @@ class Fence:
 class ZooKeeper:
     def __init__(self, name: str, surname: str, id: int) -> None:
         self._name = name
-        self._name = name
+        self._surname = surname
         self._id = id
 
 # Funzionalità
@@ -122,11 +128,14 @@ class ZooKeeper:
 #   che il guardiano impiega per pulire il recinto. Il tempo di pulizia è il rapporto dell'area occupata
 #   dagli animali diviso l'area residua del recinto. Se l'area residua è pari a 0, restituire l'area occupata.
 
-def clean(self, fence: Fence) -> float:
-    if fence.get_area() == fence.get_unavailable_area():
-        return fence.get_unavailable_area()
-    else:
-        return fence.get_unavailable_area() / (fence.get_area() - fence.get_unavailable_area())
+    def clean(self, fence: Fence) -> float:
+        if fence.get_area() == fence.get_unavailable_area():
+            return fence.get_unavailable_area()
+        else:
+            return fence.get_unavailable_area() / (fence.get_area() - fence.get_unavailable_area())
+    
+    def __str__(self) -> str:
+        return f"ZooKeeper(name={self._name}, surname={self._surname}, id={self._id})"
     
 
     
@@ -141,18 +150,37 @@ class Zoo:
 
     def get_zoo_keepers(self) -> list[ZooKeeper]:
         return self._zoo_keepers
+    
+    def __str__(self) -> str:
+        return f"Zoo(fences={self._fences}, zoo_keepers={self._zoo_keepers})"
+    
+    def describe_zoo(self) -> str:
+        for guardian in self._zoo_keepers:
+            print(f"Guardians:\n\n{guardian}")
+        print("\nFences:\n")
+        for fence in self._fences:
+            print(fence)
+            print("#" * 30)
 
 # Funzionalità:
 # 5. describe_zoo() (Visualizza informazioni sullo zoo): visualizza informazioni su tutti i guardani dello zoo,
 #    sui recinti dello zoo che contengono animali. 
 
 
-keeper = ZooKeeper("Lorenzo", "Maggi", 1234)
+keeper: ZooKeeper = ZooKeeper("Lorenzo", "Maggi", 1234)
 
-squirrel = Animal("Scoiattolo", "Blabla", 25, 0.2, 0.3, "Foresta")
-wolf = Animal("Lupo", "Lupus", 14, 0.6, 1.2, "Foresta")
+squirrel: Animal = Animal("Scoiattolo", "Blabla", 25, 0.2, 0.3, "Foresta")
+wolf: Animal = Animal("Lupo", "Lupus", 14, 0.6, 1.2, "Foresta")
 
-fence = Fence(100, 25, "Foresta")
+fence: Fence = Fence(100, 25, "Foresta")
+
+fences_list: list[Fence] = [fence]
+
+zoo1: Zoo = Zoo(fences_list, [keeper])
+
+keeper.add_animal(squirrel, fence)
+
+
 
 # E.s.: Se abbiamo un guardiano chiamato Lorenzo Maggi con matricola 1234, e un recinto 
 # Fence(area=100, temperature=25, habitat=Continentale) con due animali Animal(name=Scoiattolo, species=Blabla, age=25, ...),
@@ -174,3 +202,5 @@ fence = Fence(100, 25, "Foresta")
 # #########################
 
 # Fra un recinto e l'altro mettete 30 volte il carattere #.
+
+zoo1.describe_zoo()
