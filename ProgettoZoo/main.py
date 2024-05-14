@@ -40,6 +40,9 @@ class Animal:
     def get_health(self) -> float:
         return self._health
     
+    def set_health(self, health: float) -> None:
+        self._health = health
+    
     def __str__(self) -> str:
         return f"Animal(name={self._name}, species={self._species}, age={self._age})"
     
@@ -78,8 +81,9 @@ class Fence:
         self._unavailable_area -= (animal.get_height() * animal.get_width())
 
     def __str__(self) -> str:
-        return f"Fence(area={self._area}, temperature={self._temperature}, habitat={self._habitat}\n\nwith animals:\n\n{'\n\n'.join([str(animal) for animal in self._animals])}"
-    
+        animal_strings = '\n\n'.join([str(animal) for animal in self._animals])
+        return f"Fence(area={self._area}, temperature={self._temperature}, habitat={self._habitat}" + "\n\nwith animals:\n\n" + animal_strings
+
 # ZooKeeper: questa classe rappresenta un guardiano dello zoo responsabile della gestione dello zoo.
 #            I guardiani dello zoo hanno un name, un surname, e un id.
 
@@ -123,6 +127,16 @@ class ZooKeeper:
 #   vengono incrementate del 2%. Perciò, l'animale si può nutrire soltanto se il recinto ha ancora spazio
 #   a sufficienza per ospitare l'animale ingrandito dal cibo.
 
+    def feed(self, fence: Fence) -> None:
+        for animal in fence.get_animals():
+            if animal.get_height() * animal.get_width() < (fence.get_area() - fence.get_unavailable_area()):
+                animal.set_height(animal.get_height() * 1.02)
+                animal.set_width(animal.get_width() * 1.02)
+                animal.set_health(animal.get_health() * 1.01)
+            else:
+                print(f"There isn't enough space to feed {animal.get_name()} in this fence.")
+
+
 # 4. clean(fence: Fence) (Pulizia dei recinti): implementare un metodo che consenta al guardiano dello zoo
 #   di pulire tutti i recinti dello zoo. Questo metodo restituisce un valore di tipo float che indica il tempo
 #   che il guardiano impiega per pulire il recinto. Il tempo di pulizia è il rapporto dell'area occupata
@@ -133,7 +147,7 @@ class ZooKeeper:
             return fence.get_unavailable_area()
         else:
             return fence.get_unavailable_area() / (fence.get_area() - fence.get_unavailable_area())
-    
+        
     def __str__(self) -> str:
         return f"ZooKeeper(name={self._name}, surname={self._surname}, id={self._id})"
     
@@ -179,6 +193,8 @@ fences_list: list[Fence] = [fence]
 zoo1: Zoo = Zoo(fences_list, [keeper])
 
 keeper.add_animal(squirrel, fence)
+
+keeper.feed(fence)
 
 
 
