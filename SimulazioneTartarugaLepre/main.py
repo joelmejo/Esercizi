@@ -30,9 +30,6 @@ def weather_conditions() -> str:
 # Usate una tecnica simile per muovere la lepre seguendo le sue regole.
 
 # Nuove regole di movimento:
-MAX_HEALTH: int = 100
-hare_health: int = MAX_HEALTH
-tortoise_health: int = MAX_HEALTH
 #  Lepre:
 #     - Riposo (20% di probabilità): non si muove e recupera 10 di energia.
 #            Non può superare l'energiza iniziale.
@@ -43,53 +40,137 @@ tortoise_health: int = MAX_HEALTH
 #     - Piccola scivolata (20% di probabilità): arretra di 2 quadrati e richiede 8 di energia.
 #            Non può andare sotto il quadrato 1.
 
-def hare_move(weather: str) -> int:
+def hare_move(weather: str, health: int) -> int:
     move = random.randint(1, 10)
+    MAX_HEALTH: int = 100
     if weather == "Rainy":
+        # Riposo
         if move <= 2:
-            return 0
+            health += 10
+            health = min(MAX_HEALTH, health)
+            return 0, health
+        # Grande balzo
         elif move <= 4:
-            return 7
+            if health >= 15:
+                health -= 15
+                return 7, health
+            else:
+                return 0, health
+        # Grande scivolata
         elif move <= 5:
-            return -14
+            if health >= 20:
+                health -= 20
+                return -14, health
+            else:
+                return 0, health
+        # Piccolo balzo
         elif move <= 8:
-            return -1
+            if health >= 5:
+                health -= 5
+                return -1, health
+            else:
+                return 0, health
+        # Piccola scivolata
         else:
-            return -4
+            if health >= 8:
+                health -= 8
+                return -4, health
+            else:
+                return 0, health
     else:
+        # Riposo
         if move <= 2:
-            return 0
+            health += 10
+            health = min(MAX_HEALTH, health)
+            return 0, health
+        # Grande balzo
         elif move <= 4:
-            return 9
+            if health >= 15:
+                health -= 15
+                return 9, health
+            else:
+                return 0, health
+        # Grande scivolata
         elif move <= 5:
-            return -12
+            if health >= 20:
+                health -= 20
+                return -12, health
+            else:
+                return 0, health
+        # Piccolo balzo
         elif move <= 8:
-            return 1
+            if health >= 5:
+                health -= 5
+                return 1, health
+            else:
+                return 0, health
+        # Piccola scivolata
         else:
-            return -2
+            if health >= 8:
+                health -= 8
+                return -2, health
+            else:
+                return 0, health
         
-# - Tartaruga:
-#     - Per la tartaruga, ogni volta che il numero generato indica una mossa ma non è possibile eseguirla per mancanza di energia, essa guadagna energia.
+# Tartaruga:
+#     - Per la tartaruga, ogni volta che il numero generato indica una mossa ma non è possibile eseguirla per mancanza di energia, essa guadagna 10 di energia.
 #     - Passo veloce (50% di probabilità): avanza di 3 quadrati e richiede 5 di energia.
 #     - Scivolata (20% di probabilità): arretra di 6 quadrati e richiede 10 di energia. Non può andare sotto il quadrato 1.
 #     - Passo lento (30% di probabilità): avanza di 1 quadrato e richiede 3 di energia.
 
-def tortoise_move(weather: str) -> int:
+def tortoise_move(weather: str, health: int) -> int:
     move = random.randint(1, 10)
     if weather == "Rainy":
+        # Passo veloce
         if move <= 5:
-            return 2
+            if health >= 5:
+                health -= 5
+                return 2, health
+            else:
+                health += 10
+                return 0, health
+        # Scivolata
         elif move <= 7:
-            return -7
+            if health >= 10:
+                health -= 10
+                return -7, health
+            else:
+                health += 10
+                return 0, health
+        # Passo lento
         else:
-            return 0
+            if health >= 3:
+                health -= 3
+                return 0, health
+            else:
+                health += 10
+                return 0, health
     else:
+        # Passo veloce
         if move <= 5:
-            return 3
+            if health >= 5:
+                health -= 5
+                return 3, health
+            else:
+                health += 10
+                return 0, health
+        # Scivolata
         elif move <= 7:
-            return -6
+            if health >= 10:
+                health -= 10
+                return -6, health
+            else:
+                health += 10
+                return 0, health
+        # Passo lento
         else:
-            return 1
+            if health >= 3:
+                health -= 3
+                return 1, health
+            else:
+                health += 10
+                return 0, health
+      
 
 # Il percorso è rappresentato attraverso l'uso di una lista. Usate delle variabili per tenere traccia delle posizioni
 # degli animali (i numeri delle posizioni sono da 1 a 70). Fate partire ogni animale dalla
@@ -101,9 +182,11 @@ def tortoise_move(weather: str) -> int:
 # 'BANG !!!!! AND THEY'RE OFF !!!!!'
 
 def race() -> None:
+    MAX_HEALTH: int = 100
     hare: int = 0
-
+    hare_health: int = MAX_HEALTH
     tortoise: int = 0
+    tortoise_health: int = MAX_HEALTH
     counter: int = 0
     path_len: int = 69
     print("BANG !!!!!\nAND THEY'RE OFF !!!!!")
@@ -116,12 +199,12 @@ def race() -> None:
             print(f"The weather is {weather}")
 
 
-        move: int = hare_move(weather)
+        move, hare_health = hare_move(weather, hare_health)
         
         hare = max(0, hare + move)
         hare = min(path_len, hare)
 
-        move = tortoise_move(weather)
+        move, tortoise_health = tortoise_move(weather, tortoise_health)
 
         tortoise = max(0, tortoise + move)
         tortoise = min(path_len, tortoise)
