@@ -192,9 +192,6 @@ fences_list: list[Fence] = [fence]
 
 zoo1: Zoo = Zoo(fences_list, [keeper])
 
-keeper.add_animal(squirrel, fence)
-
-keeper.feed(fence)
 
 
 
@@ -219,4 +216,100 @@ keeper.feed(fence)
 
 # Fra un recinto e l'altro mettete 30 volte il carattere #.
 
+# Aggiunta di un animale in un recinto con habitat non corrispondente
+zoo1_keeper = zoo1.get_zoo_keepers()[0]  # Otteniamo il guardiano dallo zoo1
+zoo1_keeper.add_animal(wolf, fence)
+
+# Pulizia di un recinto completamente occupato
+zoo1_keeper.clean(fence)  # Ci aspettiamo che restituisca l'area occupata poiché il recinto è completamente occupato
+
+# Descrizione dello zoo1
 zoo1.describe_zoo()
+
+# Creazione di istanze di recinti
+fence1 = Fence(10, 20, "Foresta")
+fence2 = Fence(5, 30, "Deserto")
+fence3 = Fence(20, 25, "Prateria")
+fence4 = Fence(15, 22, "Savana")
+fence5 = Fence(8, 18, "Giungla")
+
+# Creazione di istanze di animali per ogni recinto
+animals_fence1 = [
+    Animal("Scoiattolo", "Blabla", 25, 0.2, 0.3, "Foresta"),
+    Animal("Orso", "Ursidae", 15, 1.2, 1, "Foresta"),
+    Animal("Tigre", "Panthera tigris", 10, 1.8, 1.5, "Foresta"),
+    Animal("Lupo", "Canis lupus", 8, 0.8, 1.2, "Foresta"),
+    Animal("Volpe", "Vulpes vulpes", 5, 0.5, 0.6, "Foresta")
+]
+
+animals_fence2 = [
+    Animal("Scorpione", "Scorpione", 3, 0.05, 0.1, "Deserto"),
+    Animal("Camaleonte", "Chamaeleonidae", 2, 0.1, 0.15, "Deserto"),
+    Animal("Struzzo", "Struthio camelus", 7, 2.2, 1.5, "Deserto"),
+    Animal("Ghepardo", "Acinonyx jubatus", 6, 1.1, 0.8, "Deserto"),
+    Animal("Iena", "Hyaenidae", 9, 0.9, 1.3, "Deserto")
+]
+
+animals_fence3 = [
+    Animal("Cavallo", "Equus ferus caballus", 12, 1.6, 1.7, "Prateria"),
+    Animal("Bisonte", "Bison bison", 18, 2, 2.2, "Prateria"),
+    Animal("Coyote", "Canis latrans", 11, 0.7, 1, "Prateria"),
+    Animal("Canguro", "Macropus", 14, 1.2, 1.4, "Prateria"),
+    Animal("Puma", "Puma concolor", 10, 0.9, 1.5, "Prateria")
+]
+
+animals_fence4 = [
+    Animal("Giraffa", "Giraffa camelopardalis", 20, 5, 2, "Savana"),
+    Animal("Ippopotamo", "Hippopotamus amphibius", 15, 1.8, 3, "Savana"),
+    Animal("Leone", "Panthera leo", 8, 1.5, 2, "Savana"),
+    Animal("Zebra", "Equus zebra", 13, 1.3, 1.5, "Savana"),
+    Animal("Gnu", "Connochaetes", 11, 1.2, 1.6, "Savana")
+]
+
+animals_fence5 = [
+    Animal("Gorilla", "Gorilla", 18, 1.7, 1.5, "Giungla"),
+    Animal("Leopardo", "Panthera pardus", 10, 1, 1.3, "Giungla"),
+    Animal("Scimmia", "Scimmia", 6, 0.5, 0.4, "Giungla"),
+    Animal("Tucano", "Tucanidae", 3, 0.2, 0.3, "Giungla"),
+    Animal("Tigre", "Panthera tigris", 9, 1.6, 1.2, "Giungla")
+]
+
+# Creazione dello zoo con i recinti e il guardiano
+zoo = Zoo([fence1, fence2, fence3, fence4, fence5], [ZooKeeper("Lorenzo", "Maggi", 1234)])
+
+# Aggiunta di animali ai recinti
+for fence, animals in zip([fence1, fence2, fence3, fence4, fence5], [animals_fence1, animals_fence2, animals_fence3, animals_fence4, animals_fence5]):
+    for animal in animals:
+        zoo.get_zoo_keepers()[0].add_animal(animal, fence)
+
+# Descrizione dello zoo
+zoo.describe_zoo()
+
+
+# Creazione di animali
+squirrel = Animal("Scoiattolo", "Blabla", 25, 0.2, 0.3, "Foresta")
+lion = Animal("Leone", "Panthera leo", 8, 1.5, 2, "Savana")
+
+# Creazione di un recinto
+small_fence = Fence(10, 30, "Foresta")  # Recinto troppo piccolo
+full_fence = Fence(1, 25, "Foresta")  # Recinto completamente occupato
+
+# Creazione di un guardiano dello zoo
+keeper = ZooKeeper("Lorenzo", "Maggi", 1234)
+
+# Creazione dello zoo con diversi recinti e un guardiano
+zoo = Zoo([small_fence, full_fence], [keeper])
+
+# Aggiunta di un animale in un recinto pieno
+keeper.add_animal(squirrel, full_fence)
+keeper.add_animal(lion, small_fence)
+
+# Rimozione di un animale non presente nel recinto
+keeper.remove_animal(squirrel, small_fence)
+
+# Alimentazione degli animali in un recinto senza spazio sufficiente
+keeper.add_animal(squirrel, small_fence)
+keeper.feed(small_fence)
+
+# Descrizione dello zoo
+zoo.describe_zoo()
