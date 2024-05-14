@@ -61,20 +61,20 @@ def race() -> None:
     hare: int = 0
     tortoise: int = 0
     counter: int = 0
-    path: list = ['-'] * 70
+    path: list = ['_'] * 70
     print("BANG !!!!! AND THEY'RE OFF !!!!!")
     while tortoise < 69 and hare < 69:
         race_path: list = path.copy()
         move: int = hare_move()
         
-        if (hare + move) < 1:
-            hare = 1
+        if (hare + move) < 0:
+            hare = 0
         else:
             hare += move
         move = tortoise_move()
 
-        if (tortoise + move) < 1:
-            tortoise = 1
+        if (tortoise + move) < 0:
+            tortoise = 0
         else:
             tortoise += move
         
