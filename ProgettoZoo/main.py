@@ -1,10 +1,11 @@
 # Sistema di gestione dello zoo virtuale
-    
+  
 # Animal: questa classe rappresenta un animale nello zoo. Ogni animale ha questi attributi:
 #         name, species, age, height, width, preferred_habitat, health che è uguale a round(100 * (1 / age), 3).
 
 class Animal:
-    def __init__(self, name: str, species: str, age: int, height: float, width: float, preferred_habitat: str) -> None:
+    def __init__(self, name: str, species: str, age: int, height: float, width: float, preferred_habitat: str, fence: 'Fence'= None) -> None:
+        from main import Fence
         self._name = name
         self._species = species
         self._age = age
@@ -12,6 +13,7 @@ class Animal:
         self._width = width
         self._preferred_habitat = preferred_habitat
         self._health = round(100 * (1 / age), 3)
+        self._fence = fence
 
     def get_name(self) -> str:
         return self._name
@@ -42,7 +44,13 @@ class Animal:
     
     def set_health(self, health: float) -> None:
         self._health = health
+
+    def get_fence(self) -> 'Fence':
+        return self._fence
     
+    def set_fence(self, fence: 'Fence') -> None:
+        self._fence = fence
+
     def __str__(self) -> str:
         return f"Animal(name={self._name}, species={self._species}, age={self._age})"
     
@@ -104,6 +112,7 @@ class ZooKeeper:
         if animal.get_preferred_habitat() == fence.get_habitat():
             if animal.get_height() * animal.get_width() < (fence.get_area() - fence.get_unavailable_area()):
                 fence.append_animal(animal)
+                animal.set_fence(fence)
             else:
                 print(f"There isn't enough space to add {animal.get_name} to this fence.")
         else:
@@ -117,6 +126,7 @@ class ZooKeeper:
     def remove_animal(self, animal: Animal, fence: Fence) -> None:
         if animal in fence.get_animals():
             fence.remov_animal(animal)
+            animal.set_fence(None)
         else:
             print(f"{animal.get_name().capitalize()} couldn't be removed from the fence because it isn't in it.")
 
@@ -127,12 +137,13 @@ class ZooKeeper:
 #   vengono incrementate del 2%. Perciò, l'animale si può nutrire soltanto se il recinto ha ancora spazio
 #   a sufficienza per ospitare l'animale ingrandito dal cibo.
 
-    def feed(self, fence: Fence) -> None:
-        for animal in fence.get_animals():
-            if animal.get_height() * animal.get_width() < (fence.get_area() - fence.get_unavailable_area()):
-                animal.set_height(animal.get_height() * 1.02)
-                animal.set_width(animal.get_width() * 1.02)
-                animal.set_health(animal.get_health() * 1.01)
+    def feed(self, animal: Animal) -> None:
+            fence = animal.get_fence()
+            if fence is not None:
+                if animal.get_height() * animal.get_width() <= (fence.get_area() - fence.get_unavailable_area()):
+                    animal.set_health(animal.get_health() * 1.01)
+                    animal.set_height(animal.get_height() * 1.02)
+                    animal.set_width(animal.get_width() * 1.02)        
             else:
                 print(f"There isn't enough space to feed {animal.get_name()} in this fence.")
 
@@ -309,7 +320,7 @@ keeper.remove_animal(squirrel, small_fence)
 
 # Alimentazione degli animali in un recinto senza spazio sufficiente
 keeper.add_animal(squirrel, small_fence)
-keeper.feed(small_fence)
+keeper.feed(squirrel)
 
 # Descrizione dello zoo
 zoo.describe_zoo()
