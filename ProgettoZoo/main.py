@@ -114,7 +114,7 @@ class ZooKeeper:
                 fence.append_animal(animal)
                 animal.set_fence(fence)
             else:
-                print(f"There isn't enough space to add {animal.get_name} to this fence.")
+                print(f"There isn't enough space to add {animal.get_name()} to this fence.")
         else:
             print(f"The habitat of {animal.get_name()} does not match the habitat of this fence.")
 

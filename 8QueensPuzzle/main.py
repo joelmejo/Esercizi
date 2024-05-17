@@ -60,43 +60,6 @@ def check_diagonal(row, column):
                 return False
     return True
 
-    # # diagonale destra basso
-    # for i in range(len(chess_board[row] - row)):
-    #     for j in range(len(chess_board[row]) - column):
-    #         column += 1
-    #         row += 1
-    #         if chess_board[row][column] == 1:
-    #             return False
-    #         if column == 7 or row == 7:
-    #             break
-    # # diagonale sinistra alto
-    # for i in range(abs(row - len(chess_board[row]))):
-    #     for j in range(abs(column - len(chess_board[row]))):
-    #         column -= 1
-    #         row -= 1
-    #         if chess_board[row][column] == 1:
-    #             return False
-    #         if column == 0 or row == 0:
-    #             break
-    # # diagonale sinistra basso
-    # for i in range(len(chess_board[row]) - row):
-    #     for j in range(abs(column - len(chess_board[row]))):
-    #         column -= 1
-    #         row += 1
-    #         if chess_board[row][column] == 1:
-    #             return False
-    #         if column == 0 or row == 7:
-    #             break
-    # # diagonale destra alto
-    # for i in range(abs(row - len(chess_board[row]))):
-    #     for j in range(len(chess_board[row]) - column):
-    #         column += 1
-    #         row -= 1
-    #         if chess_board[row][column] == 1:
-    #             return False
-    #         if column == 7 or row == 0:
-    #             break
-
 def check_row(row) -> bool:
     if 1 in chess_board[row]:
         return False
@@ -141,7 +104,7 @@ def place_queen() -> bool:
                         print(row)
                     print(queens_positioned)
                     print(tried_positions)
-                    time.sleep(3)
+                    #time.sleep(3)
                     return True
             # if len(queens_positioned) - 1 in tried_positions:
             #     list = tried_positions[len(queens_positioned) - 1]
