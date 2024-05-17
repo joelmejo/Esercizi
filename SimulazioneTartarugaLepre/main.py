@@ -172,12 +172,25 @@ def tortoise_move(weather: str, stamina: int) -> int:
                 return 0, stamina
       
 
+# - Ostacoli:
+# Posizionati a intervalli regolari sulla pista (es. ai quadrati 15, 30, 45), gli ostacoli riducono
+# la posizione dell'animale di un numero specificato di quadrati (es: -3, -5, -7). Gli ostacoli
+# sono rappresentati da un dizionario che mappa le posizioni degli ostacoli sul percorso (chiave)
+# ed i relaviti effetti (valore). Assicurarsi che nessun animale retroceda al di sotto del primo
+# quadrato a seguito di un ostacolo.
+
+# - Bonus:
+# Dislocati strategicamente lungo la corsa (es. ai quadrati 10, 25, 50), i bonus aumentano la posizione
+# dell'animale di un numero determinato di quadrati (es: 5, 3, 10). I bonus sono rappresentati da un dizionario
+# che mappa le posizioni dei bonus sul percorso (chiave) ed i relaviti effetti (valore).
+# Consentire agli animali di beneficiare pienamente dei bonus, ma non oltrepassare il traguardo.
+
+obstacles: dict = {15: -3, 30: -5, 45: -7}
+bonus: dict = {10: 5, 25: 3, 50: 10}
+
 # Il percorso è rappresentato attraverso l'uso di una lista. Usate delle variabili per tenere traccia delle posizioni
 # degli animali (i numeri delle posizioni sono da 1 a 70). Fate partire ogni animale dalla
 # posizione 1 (cioè ai "cancelli di partenza"). Se un animale scivola a sinistra prima del quadrato 1, riportatelo al quadrato 1.
-
-
-
 # Iniziate la gara stampando:
 # 'BANG !!!!! AND THEY'RE OFF !!!!!'
 
@@ -201,10 +214,24 @@ def race() -> None:
 
         move, hare_stamina = hare_move(weather, hare_stamina)
         
+        if hare + move in obstacles:
+            move += obstacles[hare + move]
+            print("Hare hit an obstacle")
+
+        elif hare + move in bonus:
+            move += bonus[hare + move]
+            print("Hare hit a bonus")
         hare = max(0, hare + move)
         hare = min(path_len, hare)
 
         move, tortoise_stamina = tortoise_move(weather, tortoise_stamina)
+
+        if tortoise + move in obstacles:
+            move += obstacles[tortoise + move]
+            print("Tortoise hit an obstacle")
+        elif tortoise + move in bonus:
+            move += bonus[tortoise + move]
+            print("Tortoise hit a bonus")
 
         tortoise = max(0, tortoise + move)
         tortoise = min(path_len, tortoise)
@@ -227,7 +254,7 @@ def race() -> None:
     else:
         print("HARE WINS || YUCH!!!")
 
-race()   
+race()
 
 
 # Quindi, per ogni tick dell'orologio (ossia per ogni iterazione di un ciclo),
