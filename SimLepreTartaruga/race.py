@@ -6,7 +6,7 @@
 # e il contendente che raggiunge per primo o supera questa posizione vince la gara. Durante la corsa,
 # i contendenti possono occasionalmente perdere terreno. C'è un orologio che conta i secondi.
 # Ad ogni tick dell'orologio, il vostro programma deve aggiornare la posizione degli animali secondo le seguenti regole:
-import random
+from random import randint
 
 
 # 1. Variabilità Ambientale:
@@ -18,7 +18,7 @@ import random
 # - La Lepre in caso di pioggia subisca una penalità mossa di -2. In caso di sole non subisce variazioni.
 
 def weather_conditions() -> str:
-    variable: int = random.randint(0, 1)
+    variable: int = randint(0, 1)
     if variable == 0:
         return "Sunny"
     else:
@@ -41,7 +41,7 @@ def weather_conditions() -> str:
 #            Non può andare sotto il quadrato 1.
 
 def hare_move(weather: str, stamina: int) -> int:
-    move = random.randint(1, 10)
+    move = randint(1, 10)
     MAX_STAMINA: int = 100
     if weather == "Rainy":
         # Riposo
@@ -119,7 +119,7 @@ def hare_move(weather: str, stamina: int) -> int:
 #     - Passo lento (30% di probabilità): avanza di 1 quadrato e richiede 3 di energia.
 
 def tortoise_move(weather: str, stamina: int) -> int:
-    move = random.randint(1, 10)
+    move = randint(1, 10)
     if weather == "Rainy":
         # Passo veloce
         if move <= 5:
