@@ -5,7 +5,7 @@
 
 class Animal:
     def __init__(self, name: str, species: str, age: int, height: float, width: float, preferred_habitat: str, fence: 'Fence'= None) -> None:
-        from main import Fence
+        from ProgettoZoo.zoo import Fence
         self.name = name
         self.species = species
         self.age = age
