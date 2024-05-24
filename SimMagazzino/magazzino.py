@@ -31,6 +31,8 @@ class Magazzino:
     
     def verifica_disponibilità(self, nome: str) -> str:
         prodotto = self.cerca_prodotto(nome)
+        if prodotto is None:
+            return f"{nome} non trovato."
         if prodotto.quantità > 0:
             return f"{prodotto.nome} disponibile."
         else:
