@@ -6,100 +6,100 @@
 class Animal:
     def __init__(self, name: str, species: str, age: int, height: float, width: float, preferred_habitat: str, fence: 'Fence'= None) -> None:
         from main import Fence
-        self._name = name
-        self._species = species
-        self._age = age
-        self._height = height
-        self._width = width
-        self._preferred_habitat = preferred_habitat
-        self._health = round(100 * (1 / age), 3)
-        self._fence = fence
+        self.name = name
+        self.species = species
+        self.age = age
+        self.height = height
+        self.width = width
+        self.preferred_habitat = preferred_habitat
+        self.health = round(100 * (1 / age), 3)
+        self.fence = fence
 
     def get_name(self) -> str:
-        return self._name
+        return self.name
 
     def get_species(self) -> str:
-        return self._species
+        return self.species
     
     def get_age(self) -> int:
-        return self._age
+        return self.age
 
     def get_height(self) -> float:
-        return self._height
+        return self.height
 
     def set_height(self, height: float) -> None:
-        self._height = height
+        self.height = height
 
     def get_width(self) -> float:
-        return self._width
+        return self.width
 
     def set_width(self, width: float) -> None:
-        self._width = width
+        self.width = width
 
     def get_preferred_habitat(self) -> str:
-        return self._preferred_habitat
+        return self.preferred_habitat
 
     def get_health(self) -> float:
-        return self._health
+        return self.health
     
     def set_health(self, health: float) -> None:
-        self._health = health
+        self.health = health
 
     def get_fence(self) -> 'Fence':
-        return self._fence
+        return self.fence
     
     def set_fence(self, fence: 'Fence') -> None:
-        self._fence = fence
+        self.fence = fence
 
     def __str__(self) -> str:
-        return f"Animal(name={self._name}, species={self._species}, age={self._age})"
+        return f"Animal(name={self.name}, species={self.species}, age={self.age})"
     
 # Fence: questa classe rappresenta un recinto dello zoo in cui sono tenuti gli animali.
 #        I recinti possono contenere uno o più animali. I recinti possono hanno gli attributi area, temperature e habitat.
 
 class Fence:
     def __init__(self, area: float, temperature: float, habitat: str) -> None:
-        self._area = area
-        self._unavailable_area: float = 0
-        self._temperature = temperature
-        self._habitat = habitat
-        self._animals: list[Animal] = []
+        self.area = area
+        self.unavailable_area: float = 0
+        self.temperature = temperature
+        self.habitat = habitat
+        self.animals: list[Animal] = []
     
     def get_area(self) -> float:
-        return self._area
+        return self.area
     
     def get_unavailable_area(self) -> float:
-        return self._unavailable_area
+        return self.unavailable_area
 
     def get_temperature(self) -> float:
-        return self._temperature
+        return self.temperature
 
     def get_habitat(self) -> str:
-        return self._habitat
+        return self.habitat
     
     def get_animals(self) -> list:
-        return self._animals
+        return self.animals
     
     def append_animal(self, animal: Animal) -> None:
-        self._animals.append(animal)
-        self._unavailable_area += (animal.get_height() * animal.get_width())
+        self.animals.append(animal)
+        self.unavailable_area += (animal.get_height() * animal.get_width())
 
     def remov_animal(self, animal: Animal) -> None:
-        self._animals.remove(animal)
-        self._unavailable_area -= (animal.get_height() * animal.get_width())
+        self.animals.remove(animal)
+        self.unavailable_area -= (animal.get_height() * animal.get_width())
 
     def __str__(self) -> str:
-        animal_strings = '\n\n'.join([str(animal) for animal in self._animals])
-        return f"Fence(area={self._area}, temperature={self._temperature}, habitat={self._habitat}" + "\n\nwith animals:\n\n" + animal_strings
+        animal_strings = '\n\n'.join([str(animal) for animal in self.animals])
+        return f"Fence(area={self.area}, temperature={self.temperature}, habitat={self.habitat}" + "\n\nwith animals:\n\n" + animal_strings
 
 # ZooKeeper: questa classe rappresenta un guardiano dello zoo responsabile della gestione dello zoo.
 #            I guardiani dello zoo hanno un name, un surname, e un id.
 
 class ZooKeeper:
     def __init__(self, name: str, surname: str, id: int) -> None:
-        self._name = name
-        self._surname = surname
-        self._id = id
+        self.name = name
+        self.surname = surname
+        self.id = id
 
 # Funzionalità
 
@@ -160,30 +160,30 @@ class ZooKeeper:
             return fence.get_unavailable_area() / (fence.get_area() - fence.get_unavailable_area())
         
     def __str__(self) -> str:
-        return f"ZooKeeper(name={self._name}, surname={self._surname}, id={self._id})"
+        return f"ZooKeeper(name={self.name}, surname={self.surname}, id={self.id})"
     
 
     
 # Zoo: questa classe rappresenta uno zoo. Lo zoo ha dei recinti fences e dei guardiani dello zoo, zoo_keepers.
 class Zoo:
     def __init__(self, fences: list[Fence], zoo_keepers: list[ZooKeeper] ) -> None:
-        self._fences = fences
-        self._zoo_keepers = zoo_keepers
+        self.fences = fences
+        self.zoo_keepers = zoo_keepers
 
     def get_fences(self) -> list[Fence]:
-        return self._fences
+        return self.fences
 
     def get_zoo_keepers(self) -> list[ZooKeeper]:
-        return self._zoo_keepers
+        return self.zoo_keepers
     
     def __str__(self) -> str:
-        return f"Zoo(fences={self._fences}, zoo_keepers={self._zoo_keepers})"
+        return f"Zoo(fences={self.fences}, zoo_keepers={self.zoo_keepers})"
     
     def describe_zoo(self) -> str:
-        for guardian in self._zoo_keepers:
+        for guardian in self.zoo_keepers:
             print(f"Guardians:\n\n{guardian}")
         print("\nFences:\n")
-        for fence in self._fences:
+        for fence in self.fences:
             print(fence)
             print("#" * 30)
 
