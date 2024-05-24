@@ -6,7 +6,7 @@ from restaurant import Restaurant
 from user import User
 from admin import Admin
 from privileges import Privileges
-from random import randint
+from random import sample, randint
     
 restaurant = Restaurant("Pizzeria", "Italian")
 print(restaurant.name)
@@ -183,24 +183,19 @@ for i in range(10):
 # or letters from the list and print a message saying that any ticket matching these 4 numbers or letters wins a prize.
 print("\n")
 lottery = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "a", "b", "c", "d", "e"]
-winning_ticket = []
-for i in range(4):
-    winning_ticket.append(lottery[randint(0, len(lottery) - 1)])
+winning_ticket = sample(lottery, 4)
 print(f"Any ticket matching these 4 numbers or letters wins a prize: {winning_ticket}")
 
 # 9-15. Lottery Analysis: You can use a loop to see how hard it might be to win the kind of lottery you just modeled.
 # Make a list or tuple called my_ticket. Write a loop that keeps pulling numbers until your ticket wins.
 # Print a message reporting how many times the loop had to run to give you a winning ticket.
 print("\n")
-my_ticket: list= []
-for i in range(4):
-    my_ticket.append(lottery[randint(0, len(lottery) - 1)])
+my_ticket: list= sample(lottery, 4)
 print(my_ticket)
 winning_ticket = []
 counter: int = 0
 while my_ticket != winning_ticket:
-    for i in range(4): # TRY RANDOM.SAMPLE
-        winning_ticket.append(lottery[randint(0, len(lottery) - 1)])
+    winning_ticket = sample(lottery, 4)
     counter += 1
     print(winning_ticket)
     print(counter)
