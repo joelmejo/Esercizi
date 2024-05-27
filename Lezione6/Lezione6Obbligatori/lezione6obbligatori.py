@@ -197,8 +197,7 @@ counter: int = 0
 while my_ticket != winning_ticket:
     winning_ticket = sample(lottery, 4)
     counter += 1
-    print(winning_ticket)
-    print(counter)
     if my_ticket == winning_ticket:
         print(f"My loop had to run {counter} times to give me a winning ticket.")
+        break
     winning_ticket.clear()
