@@ -196,11 +196,11 @@ def race() -> None:
     tortoise: int = 0
     tortoise_stamina: int = MAX_STAMINA
     counter: int = 0
-    path_len: int = 69
+    PATH_LEN: int = 69
     print("BANG !!!!!\nAND THEY'RE OFF !!!!!")
-    while tortoise < path_len and hare < path_len:
+    while tortoise < PATH_LEN and hare < PATH_LEN:
         
-        race_path: list = ['_'] * (path_len + 1)
+        race_path: list = ['_'] * (PATH_LEN + 1)
 
         if counter % 10 == 0:
             weather: str = weather_conditions()
@@ -217,7 +217,7 @@ def race() -> None:
             move += bonus[hare + move]
             print("Hare hit a bonus")
         hare = max(0, hare + move)
-        hare = min(path_len, hare)
+        hare = min(PATH_LEN, hare)
 
         move, tortoise_stamina = tortoise_move(weather, tortoise_stamina)
 
@@ -229,7 +229,7 @@ def race() -> None:
             print("Tortoise hit a bonus")
 
         tortoise = max(0, tortoise + move)
-        tortoise = min(path_len, tortoise)
+        tortoise = min(PATH_LEN, tortoise)
 
         if tortoise == hare:
             race_path[tortoise] = 'OUCH!!!'
@@ -244,7 +244,7 @@ def race() -> None:
 
     if tortoise == hare:
         print("IT'S A TIE.")
-    elif tortoise == path_len:
+    elif tortoise == PATH_LEN:
         print("TORTOISE WINS! || VAY!!!")
     else:
         print("HARE WINS || YUCH!!!")
