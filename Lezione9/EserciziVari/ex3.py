@@ -14,7 +14,7 @@ def reverse_list(head: ListNode) -> list[int]:
     return lista
 
 head = ListNode(val=1, next=ListNode(val=2, next=ListNode(val=3, next=ListNode(val=4, next=ListNode(val=5)))))
-print(reverse_list(head))
+print(reverse_list(head)) # [5, 4, 3, 2, 1]
 
 head = ListNode(val=1, next=ListNode(val=2))
-print(reverse_list(head))
+print(reverse_list(head)) # [2, 1]

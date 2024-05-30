@@ -28,6 +28,10 @@ def anagram(s: str, t: str) -> bool:
                 return False
     return True
 
- 	
+print(anagram("anagram","nagaram")) #True
 
-print(anagram("NeurIPS","UniReps"))
+print(anagram("rat", "car")) #False
+
+print(anagram("silent","listen")) #True
+
+print(anagram("NeurIPS","UniReps")) #True

@@ -53,4 +53,11 @@ def symmetric(tree: list[int]) -> bool:
     print(left_branch)
     print(right_branch)
     return left_branch == right_branch
-print(symmetric([1,2,2,3,4,4,3])) # True
+
+print(symmetric([1,2,2,3,4,4,3])) #True
+
+print(symmetric([1,2,2,None,3,None,3])) #False
+
+print(symmetric([1,2,2,None,3,3,None])) #True
+
+print(symmetric([1,2,2,3,None,None,3])) #True

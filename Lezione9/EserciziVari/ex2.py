@@ -10,4 +10,8 @@ def word_break(s: str, wordDict: list[str]) -> bool:
             return False
     return True
 
-print(word_break("catsandog",["cats","dog","sand","and","cat"]))
+print(word_break("leetcode",["leet","code"])) #True
+
+print(word_break("applepenapple", ["apple","pen"])) #True
+
+print(word_break("catsandog",["cats","dog","sand","and","cat"])) #False
