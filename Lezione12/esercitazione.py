@@ -134,34 +134,34 @@ class Biblioteca:
 
 class MovieCatalog:
     def __init__(self) -> None:
-        self.directors_dict: dict[str, list[str]] = {}
+        self.catalog: dict[str, list[str]] = {}
     
     def add_movie(self, director_name: str, movies: list[str]) -> None:
-        if director_name not in self.directors_dict:
-            self.directors_dict[director_name] = movies
+        if director_name not in self.catalog:
+            self.catalog[director_name] = movies
         else:
             for movie in movies:
-                self.directors_dict[director_name].append(movie)
+                self.catalog[director_name].append(movie)
 
     def remove_movie(self, director_name, movie_name) -> None:
-        if director_name in self.directors_dict:
-            if movie_name in self.directors_dict[director_name]:
-                self.directors_dict[director_name].remove(movie_name)
-            if self.directors_dict[director_name] == []:
-                self.directors_dict.pop(director_name)
+        if director_name in self.catalog:
+            if movie_name in self.catalog[director_name]:
+                self.catalog[director_name].remove(movie_name)
+            if self.catalog[director_name] == []:
+                self.catalog.pop(director_name)
 
     def list_directors(self) -> None:
-        for director in self.directors_dict.keys():
+        for director in self.catalog.keys():
             print(director)
 
     def get_movies_by_director(self, director_name) -> list:
-        if director_name in self.directors_dict:
-            return self.directors_dict[director_name]
+        if director_name in self.catalog:
+            return self.catalog[director_name]
         
     def search_movies_by_title(self, title) -> dict:
         result: dict[str, list[str]] = {}
-        for director in self.directors_dict.keys():
-            for movie in self.directors_dict[director]:
+        for director in self.catalog.keys():
+            for movie in self.catalog[director]:
                 if title in movie:
                     if director not in result:
                         result[director] = [movie]
