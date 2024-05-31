@@ -64,9 +64,15 @@ class RecipeManager:
             return "La ricetta non è presente"
             
     def update_ingredient(self, recipe_name: str, old_ingredient: str, new_ingredient: str):
-        i = self.recipes[recipe_name].index(old_ingredient)
-        self.recipes[recipe_name][i] = new_ingredient
-        return {recipe_name: self.recipes[recipe_name]}
+        if recipe_name in self.recipes:
+            for ingredient in self.recipes[recipe_name]:
+                if ingredient == old_ingredient:
+                    ingredient.replace(old_ingredient, new_ingredient)
+                    return {recipe_name: self.recipes[recipe_name]}
+            else:
+                return "L'ingrediente non è presente nella ricetta"
+        else:
+            return "La ricetta non esiste"
             
     def list_recipes(self) -> None:
         ricette: list[str]= []
