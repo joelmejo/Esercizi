@@ -1,5 +1,3 @@
-# 2
-
 # Sviluppa un sistema per la gestione delle ricette in Python che permetta agli utenti di creare, modificare,
 #    e cercare ricette basate sugli ingredienti. Il sistema dovrà essere capace di gestire una collezione di
 #    ricette e i loro ingredienti.

@@ -1,5 +1,3 @@
-# 1
-
 # Vogliamo gestire un contatore che può essere incrementato, decrementato, resettato e visualizzato.
 # La classe offre un modo semplice per tenere traccia di un conteggio che non può diventare negativo.
 
