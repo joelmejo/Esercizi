@@ -38,3 +38,56 @@ class Contatore:
         
     def mostra(self) -> None:
         print(f"Conteggio attuale: {self.conteggio}")
+
+
+c = Contatore()
+c.add1()
+c.mostra()
+
+# EXPECTED
+# Conteggio attuale: 1
+
+c = Contatore()
+c.add1()
+c.add1()
+c.add1()
+c.mostra()
+
+# EXPECTED
+# Conteggio attuale: 3
+
+c = Contatore()
+c.sub1()
+c.mostra()
+
+# EXPECTED
+# Non è possibile eseguire la sottrazione
+# Conteggio attuale: 0
+
+c = Contatore()
+c.add1()
+c.add1()
+c.add1()
+c.add1()
+c.sub1()
+c.add1()
+c.add1()
+c.sub1()
+c.mostra()
+
+# EXPECTED	
+# Conteggio attuale: 4
+
+c = Contatore()
+c.add1()
+c.add1()
+c.add1()
+c.add1()
+c.sub1()
+c.add1()
+c.add1()
+z  = c.get()
+print(z)
+
+# EXPECTED
+# 5

@@ -65,9 +65,9 @@ class RecipeManager:
             
     def update_ingredient(self, recipe_name: str, old_ingredient: str, new_ingredient: str):
         if recipe_name in self.recipes:
-            for ingredient in self.recipes[recipe_name]:
+            for i, ingredient in enumerate(self.recipes[recipe_name]):
                 if ingredient == old_ingredient:
-                    ingredient.replace(old_ingredient, new_ingredient)
+                    self.recipes[recipe_name][i] = ingredient.replace(old_ingredient, new_ingredient)
                     return {recipe_name: self.recipes[recipe_name]}
             else:
                 return "L'ingrediente non è presente nella ricetta"
@@ -96,3 +96,45 @@ class RecipeManager:
         else:
             return "Nessuna ricetta contiene l'ingrediente"
         
+
+manager = RecipeManager()
+print(manager.create_recipe("Torta di mele", ["Farina", "Uova", "Mele"]))
+print(manager.add_ingredient("Torta di mele", "Zucchero"))
+print(manager.list_recipes()) # ['Torta di mele']
+print(manager.list_ingredients("Torta di mele"))
+print(manager.search_recipe_by_ingredient("Uova"))
+
+# EXPECTED
+# {'Torta di mele': ['Farina', 'Uova', 'Mele']}
+# {'Torta di mele': ['Farina', 'Uova', 'Mele', 'Zucchero']}
+# ['Torta di mele']
+# ['Farina', 'Uova', 'Mele', 'Zucchero']
+# {'Torta di mele': ['Farina', 'Uova', 'Mele', 'Zucchero']}
+
+
+	
+	
+
+manager = RecipeManager()
+print(manager.create_recipe("Pizza Margherita", ["Farina", "Acqua", "Lievito", "Pomodoro", "Mozzarella"]))
+print(manager.add_ingredient("Pizza Margherita", "Basilico"))
+print(manager.update_ingredient("Pizza Margherita", "Mozzarella", "Mozzarella di Bufala"))
+print(manager.remove_ingredient("Pizza Margherita", "Acqua"))
+print(manager.list_ingredients("Pizza Margherita"))
+
+# EXPECTED
+# {'Pizza Margherita': ['Farina', 'Acqua', 'Lievito', 'Pomodoro', 'Mozzarella']}
+# {'Pizza Margherita': ['Farina', 'Acqua', 'Lievito', 'Pomodoro', 'Mozzarella', 'Basilico']}
+# {'Pizza Margherita': ['Farina', 'Acqua', 'Lievito', 'Pomodoro', 'Mozzarella di Bufala', 'Basilico']}
+# {'Pizza Margherita': ['Farina', 'Lievito', 'Pomodoro', 'Mozzarella di Bufala', 'Basilico']}
+# ['Farina', 'Lievito', 'Pomodoro', 'Mozzarella di Bufala', 'Basilico']
+
+	
+
+manager = RecipeManager()
+print(manager.create_recipe("Spaghetti alla Carbonara", ["Spaghetti", "Uova", "Guanciale", "Pecorino Romano", "Pepe"]))
+print(manager.search_recipe_by_ingredient("Uova"))
+
+# EXPECTED
+# {'Spaghetti alla Carbonara': ['Spaghetti', 'Uova', 'Guanciale', 'Pecorino Romano', 'Pepe']}
+# {'Spaghetti alla Carbonara': ['Spaghetti', 'Uova', 'Guanciale', 'Pecorino Romano', 'Pepe']}
