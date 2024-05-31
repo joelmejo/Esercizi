@@ -70,17 +70,22 @@ class Biblioteca:
     
     def restituisci_libro(self, titolo) -> str:
         for libro in self.libri:
-            if titolo == libro.titolo:
-                if libro.prestato == True:
-                    libro.cambia_stato_prestito()
-                    return "Libro restituito correttamente."
+            if titolo == libro.titolo and libro.prestato:
+                libro.cambia_stato_prestito()
+                return "Libro restituito correttamente."
         else:
             return "Libro non presente a catalogo."
     
     def mostra_libri_disponibili(self):
+        disponibili: list[str]= []
         for libro in self.libri:
-            if libro.prestato == False:
-                print(libro)
+            if not libro.prestato:
+                disponibili.append(libro.titolo)
+        
+        if disponibili:
+            return f"Libri disponibili : {disponibili}"
+        else:
+            return "Nessun libro disponibile"
 
 # # Create a new library
 # biblio = Biblioteca()
@@ -158,15 +163,15 @@ class MovieCatalog:
         if director_name in self.catalog:
             return self.catalog[director_name]
         
-    def search_movies_by_title(self, title) -> dict:
+    def search_movies_by_title(self, title: str) -> dict:
         result: dict[str, list[str]] = {}
-        for director in self.catalog.keys():
-            for movie in self.catalog[director]:
-                if title in movie:
-                    if director not in result:
-                        result[director] = [movie]
-                    else:
-                        result[director].append(movie)
+        for director, movies in self.catalog.items():
+            matching_movies: list[str]= []
+            for movie in movies:
+                if title.lower() in movie.lower():
+                    matching_movies.append(movie)
+            if matching_movies:
+                result[director] = matching_movies
         return result
     
 
