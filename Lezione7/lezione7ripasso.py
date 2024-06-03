@@ -1,7 +1,7 @@
 # 1.Write a function to find all numbers divisible by 7, not a multiple of 5, between 2000 and 3200 (both included).
 #    The numbers should be stored in a list and returned as output.
 
-def divisible_by_7(lower_limit: int=2000, upper_limit: int=3200):
+def divisible_by_7(lower_limit: int=2000, upper_limit: int=3200) -> list[int]:
     numbers: list[int] = []
     for num in range(lower_limit, upper_limit + 1):
         if num%5 != 0:
@@ -12,17 +12,37 @@ def divisible_by_7(lower_limit: int=2000, upper_limit: int=3200):
 print(divisible_by_7())
 
 
-
 # 2.Write a function to calculate the factorial of a number given as input.
 #    The number should be returned as output. For example:
 #     Input: 8
 #     Output: 40320
+print("\n")
+
+def factorial(num: int) -> int:
+    if num == 0:
+        return 1
+    else:
+        for i in range(num - 1, 0, -1):
+            num *= i
+        return num
+
+print(factorial(8))
+
 
 
 # 3.Use the function implemented in Exercise 2 to compute all factorial numbers of a list of numbers.
 #    The list is given as input to the function. All factorials should be returned as output. For example:
 #     Input: [2, 5, 8, 10]
 #     Output: [2, 120, 40320, 3628800]
+print("\n")
+
+def factorial_list(numbers: list[int]) -> list[int]:
+    result: list[int]= []
+    for num in numbers:
+        result.append(factorial(num))
+    return result
+
+print(factorial_list([2, 5, 8, 10]))
 
 
 # 4.Given an integer n as input, write a function to generate a dictionary that contains (i, i*i)
@@ -30,6 +50,8 @@ print(divisible_by_7())
 #    The function should return the dictionary as output. For example:
 #     Input: 8
 #     Output: {1: 1, 2: 4, 3: 9, 4: 16, 5: 25, 6: 36, 7: 49, 8: 64}
+print("\n")
+
 
 
 # 5.Write a function that accepts a string with a comma-separated sequence of words as input and
