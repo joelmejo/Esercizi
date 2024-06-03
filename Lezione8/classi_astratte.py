@@ -88,7 +88,7 @@ class Book:
     @classmethod
     def from_string(cls, book_str: str):
         string_list: list= book_str.split(', ')
-        return Book(string_list[0], string_list[1], string_list[2])
+        return cls(string_list[0], string_list[1], string_list[2])
 
 # Create a Member class with the following attributes: name, member_id, borrowed_books
 # The member class must contain the following methods:
@@ -120,7 +120,7 @@ class Member:
     @classmethod
     def from_string(cls, member_str: str):
         string_list: list= member_str.split(', ')
-        return Member(string_list[0], string_list[1])
+        return cls(string_list[0], string_list[1])
 
 # Create a Library class with the following attributes: books, members, total_books (class attribute to keep
 #    track of the total number of books)
