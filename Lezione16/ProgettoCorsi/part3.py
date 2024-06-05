@@ -103,10 +103,10 @@ class Group:
 # Definisci qui di seguito la classe Course
 
 class Course:
-    def __init__(self, name: str, groups: list[Group]= []) -> None:
+    def __init__(self, name: str) -> None:
         self.name = name
-        self.groups = groups
-
+        self.groups: list[Group]= []
+    
     def register(self, student: Student) -> None:
         for group in self.groups:
             if len(group.get_students()) < group.get_limit():
