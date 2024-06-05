@@ -119,7 +119,7 @@ class Course:
     def add_group(self, group: Group) -> None:
         self.groups.append(group)
 
- Creazione degli edifici
+# Creazione degli edifici
 smi = Building(name="SMI", address="Via Sierra Nevada 60", floors=(-2, 3))
 armellini = Building(name="ITIS", address="Basilica San Paolo", floors=(0, 4))
 
