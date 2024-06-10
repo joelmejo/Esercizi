@@ -21,12 +21,32 @@ from fattura import *
 #   - L'inizializzazione corretta degli attributi first_name, last_name e age.
 #   - Il funzionamento dei metodi setName, setLastName e setAge.
 
+class TestPersona(unittest.TestCase):
+    def setUp(self):
+        self.persona = Persona('Mario', 'Rossi')
+
+    def test_attributi(self):
+        self.assertEqual(self.persona.getName(), 'Mario')
+        self.assertEqual(self.persona.getLastName(), 'Rossi')
+        self.assertEqual(self.persona.getAge(), 0)
+
+    def test_funzioni(self):
+        self.persona.setName('Marco')
+        self.persona.setLastName('Bianchi')
+        self.persona.setAge(50)
+        self.assertEqual(self.persona.getName(), 'Marco')
+        self.assertEqual(self.persona.getLastName(), 'Bianchi')
+        self.assertEqual(self.persona.getAge(), 50)
+
 # Test della Classe Dottore
 # - Creare una classe di test chiamata TestDottore che eredita da unittest.TestCase.
 # - Implementare il metodo setUp per inizializzare un oggetto Dottore con nome, cognome, specializzazione e parcella.
 # - Scrivere test per verificare:
 #   - L'inizializzazione corretta degli attributi specifici di Dottore.
 #   - Il funzionamento del metodo isValidDoctor con diverse età.
+
+class TestPersona(unittest.TestCase):
+    
 
 # Test della Classe Paziente
 # - Creare una classe di test chiamata TestPaziente che eredita da unittest.TestCase.
@@ -41,3 +61,8 @@ from fattura import *
 #   - L'inizializzazione corretta della classe Fattura.
 #   - Il calcolo corretto del salario e del numero di fatture.
 #   - L'aggiunta e la rimozione di pazienti dalla lista.
+
+
+
+if __name__ == '__main__':
+    unittest.main()
