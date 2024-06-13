@@ -107,6 +107,22 @@ class Triangolo(Forma):
 #  avente degli asterischi ("*") lungo il suo perimetro. (Vedi Esempio di output)
 
     def render(self) -> None:
+        for i in range(self.altezza):
+            slice: str= ""
+            if i == 0:
+                slice = '*'
+            elif i == self.altezza - 1:
+                slice = '* ' * self.base
+            elif self.base > self.altezza:
+                rapporto: float = self.base // self.altezza
+                slice = '* ' + '  ' * (i *(self.base // self.altezza) - 1) + '*'
+            else:
+                rapporto: float = self.altezza // self.base
+                slice = '* ' + '  ' * (i *(self.altezza // self.base) - 1) + '*'
+            print(slice)
+
+z = Triangolo(10, 6)
+z.render()
         
  
 # Hint: per il disegno utilizzare print("*", end=" "), dato che l'argomento end = " " permette di controllare
