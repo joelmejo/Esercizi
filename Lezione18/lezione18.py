@@ -69,14 +69,31 @@ class Dates:
         self.dates: list[date] = []
 
     def add_new_date(self, data: str) -> None:
-        year, month, day = map(int, data.split('-'))
+        day, month, year = map(int, data.split('-'))
         date1 = date(year, month, day)
         self.dates.append(date1)
     
-    def remove_date(self, date: str) -> None:
+    def remove_date(self, data: str) -> None:
         data: list[int]= map(int, data.split('-'))
         for d in self.dates:
-            if d.year == 
+            if d.year == data[2]:
+                if d.month == data[1]:
+                    if d.day == data[0]:
+                        self.dates.remove(d)
+    
+    def modify_date(self, old_date: str, new_date: str) -> None:
+        old_date: list[int]= map(int, old_date.split('-'))
+        for d in self.dates:
+            if d.year == old_date[2]:
+                if d.month == old_date[1]:
+                    if d.day == old_date[0]:
+                        day, month, year = map(int, new_date.split('-'))
+                        d = date(year, month, day)
+
+    # def getDate(self) -> date:
+        
+
+
 
 # 5 An interactive calculator: It is required to develop an interactive calculator with at least 10 test cases
 #    using UnitTest trying to (possibly) cover all execution paths! User input is assumed to be a formula that
@@ -89,6 +106,43 @@ class Dates:
 #     If the second input is not '+' or '-', again raise a FormulaError.
 #     If the input is valid, perform the calculation and print out the result. The user is then prompted to
 #        provide new input, and so on, until the user enters quit.
+
+def interactive_calculator() -> float:
+    class FormulaError(Exception):
+        def __init__(self, message: str) -> None:
+            self.message = message
+            super().__init__(self.message)
+        
+        def __str__(self):
+            return f"{self.__class__.__name__}: {self.message}"
+    print("Enter your operation: ")
+
+    raises: int= 0
+    while raises < 5:
+        formula: str = input()
+        listed_formula: list= formula.split()
+        try:
+            if len(listed_formula) != 3:
+                raise FormulaError("Please input two numbers and an operand(+ or -)")
+            else:    
+                n1: float = float(listed_formula[0])
+                n2: float = float(listed_formula[2])
+                operand: str = listed_formula[1]
+                if operand == '+':
+                    return n1 + n2
+                elif operand == '-':
+                    return n1 - n2
+                else:
+                    raise FormulaError("Please input a valid operand")
+        except ValueError as e:
+            raises += 1
+            print(FormulaError("Please input two valid numbers"))
+        
+        except FormulaError as e:
+            raises += 1
+            print(e)
+
+print(interactive_calculator())
 
 # 6 Personalized math library: Create a Python library that provides functions for handling fractions,
 #        with built-in error handling. The library must include functions for the following operations:
