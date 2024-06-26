@@ -64,6 +64,7 @@ def context_manager():
 #    A query on a given date allows for retrieving a given new date. Note that a date is an object for your
 #    database; it must be instantiated from a string.
 from datetime import date
+from typing import Any
 class Dates:
     def __init__(self) -> None:
         self.dates: list[date] = []
@@ -142,7 +143,7 @@ def interactive_calculator() -> float:
             raises += 1
             print(e)
 
-print(interactive_calculator())
+# print(interactive_calculator())
 
 # 6 Personalized math library: Create a Python library that provides functions for handling fractions,
 #        with built-in error handling. The library must include functions for the following operations:
@@ -156,8 +157,77 @@ print(interactive_calculator())
 #        unsupported operations, or division by zero. The library must raise custom exceptions to indicate specific
 #        errors to the user.
 
+class Fraction:
+    def __init__(self, numerator: int, denominator: int) -> None:
+        self.numerator = numerator
+        self.denominator = denominator
+
+    def get_numerator(self) -> int:
+        return self.numerator
+    
+    def get_denominator(self) -> int:
+        return self.denominator
+    
+    def simplify(self) -> None:
+        try:
+            divisor: int = min(self.numerator, self.denominator)
+            while divisor > 1:
+                if self.numerator / divisor == self.numerator // divisor and self.denominator / divisor == self.denominator // divisor:
+                    self.numerator //= divisor
+                    self.denominator //= divisor
+                    divisor = min(self.numerator, self.denominator)
+                else:
+                    divisor -= 1
+        except TypeError as e:
+            print(e)
+    
+    @staticmethod
+    def add(fraction1: 'Fraction', fraction2: 'Fraction') -> 'Fraction':
+        try:
+            if fraction1.denominator == fraction2.denominator:
+                return Fraction(fraction1.numerator + fraction2.numerator, fraction1.denominator)
+            else:
+                denominator: int = fraction1.denominator * fraction2.denominator
+                numerator: int = ((denominator // fraction1.denominator) * fraction1.numerator) + ((denominator // fraction2.denominator) * fraction2.numerator)
+                return Fraction(numerator, denominator)
+        except TypeError as e:
+            print(e)
+    
+    @staticmethod
+    def subtract(fraction1: 'Fraction', fraction2: 'Fraction') -> 'Fraction':
+        try:
+            if fraction1.denominator == fraction2.denominator:
+                return Fraction(fraction1.numerator - fraction2.numerator, fraction1.denominator)
+            else:
+                denominator: int = fraction1.denominator * fraction2.denominator
+                numerator: int = ((denominator // fraction1.denominator) * fraction1.numerator) - ((denominator // fraction2.denominator) * fraction2.numerator)
+                return Fraction(numerator, denominator)
+        except TypeError as e:
+            print(e)
+
+    @staticmethod
+    def multiply(fraction1: 'Fraction', fraction2: 'Fraction') -> 'Fraction':
+        try:
+            return Fraction(fraction1.numerator * fraction2.numerator, fraction1.denominator * fraction2.denominator)
+        except TypeError as e:
+            print(e)
+    
+    @staticmethod
+    def divide(fraction1: 'Fraction', fraction2: 'Fraction') -> 'Fraction':
+        try:
+            return Fraction.multiply(fraction1, Fraction(fraction2.denominator, fraction2.numerator))
+        except TypeError as e:
+            print(e)
+    
+    def is_equivalent(self, other_fraction: 'Fraction') -> bool:
+        try:
+            return self.denominator / self.numerator == other_fraction.denominator / other_fraction.numerator
+        except TypeError as e:
+            print(e)
+
 # 7 Custom Exception for Data Structure Integrity: Define a custom exception class DataStructureIntegrityError.
 #     Define the custom data structure linked list use classes with methods to append, remove and access a given
 #     element, and write functions that operate on that (i.e., print the list,  reverse the list, and check whether
 #     the list is ordered). Raise this exception if the data structure's integrity is compromised (e.g., empty list
 #     access, index error).
+
