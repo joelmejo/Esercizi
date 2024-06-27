@@ -13,11 +13,10 @@ class Node:
         self.next = None
         self.pos = Node.pos
         Node.pos += 1 
-
-
         
 class LinkedList:
-    pass
+    def __init__(self) -> None:
+        self.head = None
         
 def has_cycle(head: Node) -> list[int]:
     pass
