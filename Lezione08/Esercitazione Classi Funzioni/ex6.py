@@ -16,11 +16,35 @@ class Node:
         
 class LinkedList:
     def __init__(self) -> None:
-        self.head = None
+        self.head: Node= None
+
+    def append(self, n: int) -> None:
+        if self.head is None:
+            self.head = Node(n)
+        else:
+            head: Node= self.head
+            while head.next is not None:
+                head = head.next
+            head.next = Node(n)
+    
+    def get_node(self, n: int) -> Node:
+        head: Node= self.head
+        if head.data == n:
+            return head
+        
+        while head.next is not None:
+            head = head.next
+            if head.data == n:
+                return head
+            
+
         
 def has_cycle(head: Node) -> list[int]:
-    pass
-
+    while head.next is not None:
+        if head.data >= head.next.data:
+            return True
+        head = head.next
+    return False
 
 
 
