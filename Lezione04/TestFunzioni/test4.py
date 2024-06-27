@@ -21,6 +21,7 @@ def flag_bubble_sort(a: list):
         if swap_flag is False:
             return None
     return None
+
 def find_disappeared_numbers(nums: list[int]) -> list[int]:
     # elimina il pass e inserisci il codice
     flag_bubble_sort(nums)
