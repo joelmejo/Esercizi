@@ -14,6 +14,7 @@ class Node:
         self.pos = Node.pos
         Node.pos += 1 
 
+
         
 class LinkedList:
     pass
