@@ -56,3 +56,21 @@ node4: Node= ll1.get_node(4)  # Node with value 4
 node4.next = node1  # Creating a cycle
 
 print(has_cycle(ll1.head)) # True
+
+ll2 = LinkedList()
+for i in range(5):
+    ll2.append(i)
+
+print(has_cycle(ll2.head)) #False
+
+ll4 = LinkedList()
+ll4.append(1)
+node = ll4.head
+node.next = node  # Creating a cycle
+
+print(has_cycle(ll4.head)) #True
+
+ll3 = LinkedList()
+ll3.append(1)
+
+print(has_cycle(ll3.head))  # Output: False
