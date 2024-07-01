@@ -23,27 +23,27 @@ class LinkedList:
             current.next = Node(n)
     
     def get_node(self, n: int) -> Node:
-        head: Node= self.head
-        if head.data == n:
-            return head
+        current: Node= self.head
+        if current.data == n:
+            return current
         
-        while head.next is not None:
-            head = head.next
-            if head.data == n:
-                return head
+        while current.next is not None:
+            current = current.next
+            if current.data == n:
+                return current
         
 def is_palindrome(head: Node) -> list:
     half = (Node.pos) // 2
-    headd: Node= head
+    current: Node= head
     first_half: list= []
     second_half: list= []
     for i in range(Node.pos):
         if i < half:
-            first_half.append(headd.data)
-            headd = headd.next
+            first_half.append(current.data)
+            current = current.next
         else:
-            second_half.append(headd.data)
-            headd = headd.next
+            second_half.append(current.data)
+            current = current.next
             
     second_half = list(reversed(second_half))
     if (Node.pos - 1) > 1:

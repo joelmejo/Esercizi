@@ -28,14 +28,14 @@ class LinkedList:
             current.next = Node(n)
     
     def get_node(self, n: int) -> Node:
-        head: Node= self.head
-        if head.data == n:
-            return head
+        current: Node= self.head
+        if current.data == n:
+            return current
         
-        while head.next is not None:
-            head = head.next
-            if head.data == n:
-                return head
+        while current.next is not None:
+            current = current.next
+            if current.data == n:
+                return current
             
 
         
