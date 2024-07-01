@@ -17,10 +17,10 @@ class LinkedList:
         if self.head is None:
             self.head = Node(n)
         else:
-            head: Node= self.head
-            while head.next is not None:
-                head = head.next
-            head.next = Node(n)
+            current: Node= self.head
+            while current.next is not None:
+                current = current.next
+            current.next = Node(n)
     
     def get_node(self, n: int) -> Node:
         head: Node= self.head

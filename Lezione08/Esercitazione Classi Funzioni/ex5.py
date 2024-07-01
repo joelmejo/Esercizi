@@ -11,7 +11,7 @@ def is_valid_parenthesis(s: str) -> bool:
     # cancella pass e scrivi qui il tuo codice
     listed: list= list(s)
     check: list= []
-    brackets: dict = {"(": ")", "[": "]", "{": "}", '"': '"'}
+    brackets: dict = {"(": ")", "[": "]", "{": "}"}
     for i in listed:
         if i in brackets:
             check.append(i)
